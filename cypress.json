@@ -1,1 +1,10 @@
-{}
+{
+    
+        "baseUrl": "https://cypress.vivifyscrum-stage.com/",
+        "env": {
+            "external_email": "frederik67@gmail.com",
+            "external_password":"qatester923",
+            "api_url": "https://cypress-api.vivifyscrum-stage.com/api/v2/login"
+        }
+    
+}
