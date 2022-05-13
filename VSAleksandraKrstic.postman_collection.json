@@ -1,0 +1,221 @@
+{
+	"info": {
+		"_postman_id": "93dbf988-2b5b-4474-8905-2b84042fa4e7",
+		"name": "VSAleksandraKrstic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.environment.set(\"token\", jsonData.access_token);\r",
+							"\r",
+							"console.log(jsonData.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"Frederik67@gmail.com\",\r\n    \"password\": \"qatester923\",\r\n    \"g-recaptcha-response\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://cypress-api.vivifyscrum-stage.com/api/v2/login",
+					"protocol": "https",
+					"host": [
+						"cypress-api",
+						"vivifyscrum-stage",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add organization- valid credentials",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"   \r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Hello\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tk}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Hello",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"type": "file",
+							"src": "/C:/Users/HP/Desktop/download-icon-logo+music+network+social+icon-1320086344357497877_256.png"
+						},
+						{
+							"key": "avatar_crop_cords:",
+							"value": "\"x\":0,\"y\":0,\"x2\":248.65573770491804,\"y2\":248.65573770491804,\"w\":248.65573770491804,\"h\":248.65573770491804",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/organizations",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"organizations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add organization with no name",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/organizations",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"organizations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add organization with no token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"\r",
+							"})\r",
+							"pm.test(\"Status code is 401\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Hello",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/organizations",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"organizations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Organization -name (numbers)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/organizations?name=6632763276276428764286",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"organizations"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "6632763276276428764286"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
