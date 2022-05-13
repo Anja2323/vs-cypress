@@ -1,6 +1,6 @@
-import { addNewBoard } from "../page_objects/boardPOM";
+import { addNewBoard } from "../page_objects/addBoardPOM";
 import { loginPage } from "../page_objects/loginPOM";
-import { configureBoard } from "../page_objects/configureBoardPOM";
+import { configureBoard } from "../page_objects/deleteBoard";
 describe("configure the board", () => {
   beforeEach("", () => {
     cy.visit("/");

@@ -1,4 +1,4 @@
-import { addNewBoard } from "../page_objects/boardPOM";
+import { addNewBoard } from "../page_objects/addBoardPOM";
 import { loginPage } from "../page_objects/loginPOM";
 describe("new board", () => {
   beforeEach("", () => {
